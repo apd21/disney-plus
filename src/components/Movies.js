@@ -1,23 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { selectMovies } from '../features/movie/movieSlice';
+import { useSelector } from 'react-redux';
 
 const Movies = () => {
+    const movies = useSelector(selectMovies);
     return (
         <Container>
             <h4>Recommended for You</h4>
             <Content>
-                <Wrap>
-                    <img src="https://lumiere-a.akamaihd.net/v1/images/star-wars-the-rise-of-skywalker-theatrical-poster-1000_ebc74357.jpeg?region=0%2C0%2C891%2C1372" />
-                </Wrap>
-                <Wrap>
-                    <img src="https://m.media-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg" />
-                </Wrap>
-                <Wrap>
-                    <img src="https://static1.colliderimages.com/wordpress/wp-content/uploads/2021/03/star-wars-order.png" />
-                </Wrap>
-                <Wrap>
-                    <img src="https://lumiere-a.akamaihd.net/v1/images/hb_disneyplus_skywalkersaga_mobile_19267_e964ed2c.jpeg?region=0,0,640,400" />
-                </Wrap>
+                { movies && movies.map((movie) => (
+                    <Wrap key = {movie.id}>
+                        <Link to={`detail/${movie.id}`}>
+                            <img src={movie.cardImg} />
+                        </Link>
+                    </Wrap>
+                ))}
             </Content>
         </Container>
     )
@@ -58,3 +57,5 @@ const Wrap = styled.div`
         rgb(0 0 0 / 72%) 0px 30px 22px -10px;
     }
 `;
+
+
